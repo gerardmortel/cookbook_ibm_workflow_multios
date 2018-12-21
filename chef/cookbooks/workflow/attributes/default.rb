@@ -30,7 +30,8 @@
 # TODO: keep current hard-coded default value for testing need, need cleanup before releasing
 
 # workflow archive files(images) download location
-default['ibm']['sw_repo'] = ''
+#default['ibm']['sw_repo'] = '/home/opc/software/baw'
+default['ibm']['sw_repo'] = 'file:////home/cloud-user'
 # workflow ifix files download location
 default['ibm']['ifix_repo'] = ''
 # workflow fixpack files download location
@@ -40,25 +41,25 @@ default['ibm']['fixpack_repo'] = ''
 default['ibm']['log_dir'] = '/var/log/ibm_cloud'
 
 # os admin user
-default['os_admin']['user'] = ''
+default['os_admin']['user'] = 'cloud-user'
 
 #default['workflow']['install_mode'] = 'group'
 default['workflow']['install_mode'] = 'nonAdmin'
 
 default['workflow']['os_users'] = {
   'workflow'  =>  {
-    'name' =>     'wfuser',
-    'gid' =>      'wfgrp',
+    'name' =>     'cloud-user',
+    'gid' =>      'cloud-user',
     'comment' =>  'OS administrative user for Workflow installation',
-    'home' =>     "/home/wfuser",
+    'home' =>     "/home/cloud-user",
     'shell' =>    '/bin/bash'
   }
 }
 
-default['workflow']['im_version'] = ''
+default['workflow']['im_version'] = '189'
 
 # The release and fixpack level of Business Automation Workflow to be installed. Example formats are 18001.
-default['workflow']['version'] = ''
+default['workflow']['version'] = '18001'
 
 default['workflow']['features'] = 'WorkflowEnterprise.Production' # 'WorkflowEnterprise.Production', 'WorkflowEnterprise.NonProduction',
 # 'EnterpriseServiceBus.Production', 'EnterpriseServiceBus.NonProduction', 'WorkflowExpress.Production' or 'WorkflowExpress.NonProduction'
@@ -66,8 +67,8 @@ default['workflow']['features'] = 'WorkflowEnterprise.Production' # 'WorkflowEnt
 
 # TODO: workflow features & workflow offering_id must keep consistent, add check later
 # or leverage workflow offering_id to determine workflow features
-default['workflow']['offering_id'] = ''
-default['workflow']['offering_version'] = ''
+default['workflow']['offering_id'] = 'com.ibm.bpm.ADV.v85'
+default['workflow']['offering_version'] = '8.6.10018001.20180628_0740'
 
 default['workflow']['install_dir'] = '/opt/IBM/Workflow'
 
@@ -77,26 +78,26 @@ default['workflow']['ifix_names'] = ''
 # fixpack list in string format. For example "cf1.tar.gz, cf2.tar.gz, cf3.tar.gz"
 default['workflow']['fixpack_names'] = ''
 
-default['was']['offering_id'] = ''
+default['was']['offering_id'] = 'com.ibm.websphere.ND.v85'
 # TODO: modify the profile id to workflow, and change the profile id to a full name of workflow
 # TODO: consider to remove this attribute, and use 'Business Automation Workflow' as replacement.
-default['workflow']['profile_id'] = ''
+default['workflow']['profile_id'] = 'Business Automation Workflow'
 
-default['db2']['offering_id'] = ''
-default['db2']['offering_version'] = ''
+default['db2']['offering_id'] = 'com.ibm.ws.DB2EXP.linuxia64'
+default['db2']['offering_version'] = '11.1.0.20180627_0249'
 
 default['db2']['install'] = 'true'
 # To install DB2 Advanced Workgroup Server Edition, config the DB2 user name and encrypted password.
 # MUST if attribute ['db2']['install'] is 'true'
 default['db2']['port'] = '50000'
 default['db2']['username'] = 'db2inst1'
-default['db2']['password'] = ''
+default['db2']['password'] = 'Bpmr0cks'
 default['db2']['das_newuser'] = 'true'
 default['db2']['fenced_newuser'] = 'true'
 default['db2']['fenced_username'] = 'db2fenc1'
-default['db2']['fenced_password'] = ''
+default['db2']['fenced_password'] = 'Bpmr0cks'
 default['db2']['das_username'] = 'dasusr1'
-default['db2']['das_password'] = ''
+default['db2']['das_password'] = 'Bpmr0cks'
 
 
 #
@@ -109,25 +110,25 @@ default['workflow']['config']['cluster_type'] = 'SingleCluster'
 
 # Deployment environment administrator authentication alias.
 default['workflow']['config']['deadmin_alias_user'] = 'deadmin'
-default['workflow']['config']['deadmin_alias_password'] = ''
+default['workflow']['config']['deadmin_alias_password'] = 'deadmin'
 # Cell (WAS) administration authentication alias
 default['workflow']['config']['celladmin_alias_user'] = 'admin'
-default['workflow']['config']['celladmin_alias_password'] = ''
+default['workflow']['config']['celladmin_alias_password'] = 'admin'
 # The host name of the deployment manager. Do not use localhost for environments that span multiple hosts.
-default['workflow']['config']['dmgr_hostname'] = ''
+default['workflow']['config']['dmgr_hostname'] = 'localhost'
 # If the host name is the same as the deployment manager, this node will be created on the same computer. Do not use localhost for environments that span multiple hosts.
-default['workflow']['config']['node_hostname'] = ''
+default['workflow']['config']['node_hostname'] = 'localhost'
 
 # same as default['db2']['install'] above
 default['workflow']['config']['db2_install'] = 'true'
 # The host name of the database. Do not use localhost for environments that span multiple hosts.
-default['workflow']['config']['db2_hostname'] = ''
+default['workflow']['config']['db2_hostname'] = 'localhost'
 # The port of the DB2 database
 default['workflow']['config']['db2_port'] = '50000'
 # Database user authentication alias
 default['workflow']['config']['db_alias_user'] = 'db2inst1'
 # Database user authentication alias password
-default['workflow']['config']['db_alias_password'] = ''
+default['workflow']['config']['db_alias_password'] = 'Bpmr0cks'
 # The name of the COMMON database.
 default['workflow']['config']['db2_cmndb_name'] = 'CMNDB'
 # The name of the ProcessServerDb database.
@@ -171,4 +172,5 @@ default['workflow']['config']['ps_pc_port'] = '9443'
 default['workflow']['config']['ps_pc_contextroot_prefix'] = ''
 # (<> PS only <>) Process Center authentication alias (which is used by online Process Server environments to connect to Process Center)
 default['workflow']['config']['ps_pc_alias_user'] = 'admin'
-default['workflow']['config']['ps_pc_alias_password'] = ''
+default['workflow']['config']['ps_pc_alias_password'] = 'admin'
+default['workflow']['config']['apikey'] = 'admin'

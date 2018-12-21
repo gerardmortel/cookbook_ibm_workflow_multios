@@ -179,7 +179,8 @@ end
 action :install do
   if @current_resource.installed
     Chef::Log.info "#{@new_resource} already exists - nothing to do."
-  elsif @current_resource.im_installed
+#  elsif @current_resource.im_installed
+  else
     converge_by("install #{@new_resource}") do
 
       im_install_dir = define_im_install_dir
@@ -333,10 +334,10 @@ action :install do
         end
       end
     end
-  else
-    user = define_user
-    Chef::Log.fatal "Installation manager is not installed for user #{user}. Please use :install_im action to install IM."
-    raise "Installation manager is not installed for user #{user}. Please use :install_im action to install IM."
+#  else
+#    user = define_user
+#    Chef::Log.fatal "Installation manager is not installed for user #{user}. Please use :install_im action to install IM."
+#    raise "Installation manager is not installed for user #{user}. Please use :install_im action to install IM."
   end
 end
 
