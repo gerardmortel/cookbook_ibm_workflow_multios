@@ -173,4 +173,5 @@ default['workflow']['config']['ps_pc_contextroot_prefix'] = ''
 # (<> PS only <>) Process Center authentication alias (which is used by online Process Server environments to connect to Process Center)
 default['workflow']['config']['ps_pc_alias_user'] = 'admin'
 default['workflow']['config']['ps_pc_alias_password'] = 'admin'
-default['workflow']['config']['apikey'] = 'admin'
+default['workflow']['config']['metering']['apikey'] = 'Bpmr0cks'
+default['workflow']['config']['database_type'] = 'DB2'
