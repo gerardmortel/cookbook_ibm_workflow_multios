@@ -1,0 +1,74 @@
+# =================================================================
+# Copyright 2018 IBM Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =================================================================
+
+import java
+
+# Define node names
+Nodes = "Node1"
+arrayNodes = Nodes.split(",")
+
+cellName = AdminControl.getCell()
+
+# Save and Sync nodes function
+def saveAndSync(arrayNodes):
+ AdminConfig.save()
+ for z in range(len(arrayNodes)):
+  Sync1 = AdminControl.completeObjectName('type=NodeSync,process=nodeagent,node='+arrayNodes[z]+',*')
+  AdminControl.invoke(Sync1, 'sync')
+ print "#### Saved and synced nodes"
+# end of saveAndSync
+
+# Main
+# Print cell name
+print "#### Cell name is " + cellName
+
+# Install EAR
+#AdminApp.install('/home/cloud-user/NiceIntegration/NiceIntegrationMediationApp.ear', '[ -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -appname NiceIntegrationMediationApp -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -processEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -MapModulesToServers [[ NiceIntegrationMediationWeb NiceIntegrationMediationWeb.war,WEB-INF/web.xml WebSphere:cell=PCCell1,cluster=SingleCluster ]]]' )
+
+#saveAndSync(arrayNodes)
+
+#AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "COMMON_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/SOAUtil.jar"]]')
+#AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "SERVERSTARTUP_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/log4j-1.2.17.jar"]]')
+
+#saveAndSync(arrayNodes)
+
+# Get server id
+serv = AdminConfig.getid('/Server:SingleClusterMember1/')
+print serv
+
+# Get application server id
+appServer = AdminConfig.list('ApplicationServer', serv)
+print appServer
+
+# Get class loader id
+classLoaderId = AdminConfig.create('Classloader', appServer, '[[mode PARENT_FIRST]]')
+print classLoaderId
+
+# Get class loader id, don't know difference between this and previous
+classLoad = AdminConfig.showAttribute(appServer, 'classloaders')
+cleanClassLoaders = classLoad[1:len(classLoad)-1]
+classLoader1 = cleanClassLoaders.split(' ')[0]
+print classLoader1
+
+# Create shared library references
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_Content_Navigator_Shared_Library']])
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'COMMON_LIB']])
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_PerformanceDW_Shared_Library']])
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_Process_Server_Shared_Library']])
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_DocStoreAdmin_Shared_Library']])
+print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'SERVERSTARTUP_LIB']])
+
+saveAndSync(arrayNodes)

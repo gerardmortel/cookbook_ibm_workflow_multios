@@ -25,8 +25,8 @@
 # TODO: no need to enable below settings, for that
 # default value is bigger than following settings on Ubuntu OS
 # - nproc - maximum number of processes
-#<%= @OSUSER %> soft nproc 16384
-#<%= @OSUSER %> hard nproc 16384
+<%= @OSUSER %> soft nproc 16384
+<%= @OSUSER %> hard nproc 16384
 # - fsize - maximum file size
 #<%= @OSUSER %> soft fsize 6291453
 #<%= @OSUSER %> hard fsize 6291453
@@ -38,8 +38,8 @@
 <%= @OSADMINUSER %> soft nofile 65536
 <%= @OSADMINUSER %> hard nofile 65536
 # - nproc - maximum number of processes
-#<%= @OSADMINUSER %> soft nproc 16384
-#<%= @OSADMINUSER %> hard nproc 16384
+<%= @OSADMINUSER %> soft nproc 16384
+<%= @OSADMINUSER %> hard nproc 16384
 # - fsize - maximum file size
 #<%= @OSADMINUSER %> soft fsize 6291453
 #<%= @OSADMINUSER %> hard fsize 6291453

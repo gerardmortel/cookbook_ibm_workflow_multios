@@ -41,7 +41,7 @@ default['ibm']['fixpack_repo'] = ''
 default['ibm']['log_dir'] = '/var/log/ibm_cloud'
 
 # os admin user
-default['os_admin']['user'] = 'cloud-user'
+default['os_admin']['user'] = 'root'
 
 #default['workflow']['install_mode'] = 'group'
 default['workflow']['install_mode'] = 'nonAdmin'

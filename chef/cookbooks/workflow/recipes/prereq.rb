@@ -85,6 +85,59 @@ when 'debian'
       manage_home true
     end
   end
+
+when 'rhel'
+  # run 'yum update' to get lastest packages info
+  execute 'Update rhel repos' do
+    command "yum -y update"
+   ignore_failure true
+  end
+
+  # # Install the prereq packages
+  # node['workflow']['prereq_packages'].each do |p|
+    # package p do
+      # action :install
+      # ignore_failure  true
+    # end
+  # end
+
+  # TODO: if IM install by root in nonAdmin mode, what needed?
+  #       root ulimits or the normal user's limits?
+  # TODO: if IM install by non-root in nonAdmin mode, is this okay?
+  template "/etc/security/limits.d/workflow-limits.conf" do
+    source "workflow-limits.conf.erb"
+    mode '0644'
+    variables(
+      :OSADMINUSER => (node['os_admin']['user']).to_s,
+      :OSUSER => (node['workflow']['os_users']['workflow']['name']).to_s
+    )
+  end
+
+  # This RHEL image has ulimit set in the .bash_profile so comment the last line out
+  # Before: "ulimit -n 10000"
+  # After: "#ulimit -n 10000"
+  template "/root/.bash_profile" do
+    source ".bash_profile.erb"
+    mode '0644'
+  end
+
+  # #create OS users and groups
+  # node['workflow']['os_users'].each_pair do |_k, u|
+    # next if u['name'].nil?
+    # next if u['gid'].nil?
+    # group u['gid'] do
+      # action :create
+    # end
+
+    # user u['name'] do
+      # action :create
+      # comment u['comment']
+      # home u['home']
+      # gid u['gid']
+      # shell u['shell']
+      # manage_home true
+    # end
+  # end
 end
 
 # create directories ahead of time
