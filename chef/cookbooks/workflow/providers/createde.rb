@@ -924,7 +924,8 @@ action :start_server do
   workflow_user = new_resource.workflow_runas_user
   workflow_group = new_resource.workflow_runas_group
 
-  serverName = compute_server_name(new_resource.node_hostnames, node['hostname'])
+  #serverName = compute_server_name(new_resource.node_hostnames, node['hostname'])
+  serverName = 'SingleClusterMember1'
   nodeIndex = compute_node_index(new_resource.node_hostnames, node['hostname'])
 
   start_server(workflow_user, nodeIndex, serverName, workflow_group, new_resource.install_dir)

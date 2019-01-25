@@ -21,30 +21,28 @@
 # <> Installs a Mediation Module into IBM Business Automation Workflow
 #
 
-baw_admin_username = 'admin'
-baw_admin_password = 'admin'
-
 template 'Create install_ear.jy file for BAW' do
-    path '/tmp/install_ear.jy'
+	path '/tmp/install_ear.jy'
 	source 'wsadmin/install_ear.jy.erb'
-    owner 'root'
-    group 'root'
-    mode "0644"
+	owner node['workflow']['runas_user']
+	group node['workflow']['runas_group']
+	mode "0644"
+	variables(
+		:ear	=>	node['workflow']['ear'],
+	)
 end
 
 execute 'Install EAR for BAW' do
-command "#{node['workflow']['install_dir']}//profiles/DmgrProfile/bin/wsadmin.sh -lang jython -f /tmp/install_ear.jy -username #{baw_admin_username} -password #{baw_admin_password}"
-#user node['odm']['ds']['user']
-#group node['odm']['ds']['group']
-user 'root'
-group 'root'
+command "#{node['workflow']['install_dir']}//profiles/DmgrProfile/bin/wsadmin.sh -lang jython -f /tmp/install_ear.jy -username #{node['workflow']['config']['celladmin_alias_user']} -password #{node['workflow']['config']['celladmin_alias_password']}"
+user node['workflow']['runas_user']
+group node['workflow']['runas_group']
 notifies :create, "file[/opt/chef/install_EAR.done]", :immediately
 not_if { ::File.exist?("/opt/chef/install_EAR.done") }
 end
 
 file "/opt/chef/install_EAR.done" do
-    user 'root'
-    group 'root'
+    user node['os_admin']['user']
+    group node['os_admin']['group']
     mode '0644'
     action :nothing
 end

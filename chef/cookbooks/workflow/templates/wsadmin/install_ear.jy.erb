@@ -16,6 +16,9 @@
 
 import java
 
+# Ger variables from attributes/default.rb
+appEAR="<%=@ear%>"
+
 # Define node names
 Nodes = "Node1"
 arrayNodes = Nodes.split(",")
@@ -38,12 +41,16 @@ print "#### Cell name is " + cellName
 # Install EAR
 #AdminApp.install('/home/cloud-user/NiceIntegration/NiceIntegrationMediationApp.ear', '[ -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -appname NiceIntegrationMediationApp -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -processEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -MapModulesToServers [[ NiceIntegrationMediationWeb NiceIntegrationMediationWeb.war,WEB-INF/web.xml WebSphere:cell=PCCell1,cluster=SingleCluster ]]]' )
 
-#saveAndSync(arrayNodes)
+print "#### Install started for " + appEAR
+AdminApp.install(appEAR, '[ -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -appname NiceIntegrationMediationApp -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -processEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -MapModulesToServers [[ NiceIntegrationMediationWeb NiceIntegrationMediationWeb.war,WEB-INF/web.xml WebSphere:cell=PCCell1,cluster=SingleCluster ]]]' )
+print "#### Install completed for " + appEAR
 
-#AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "COMMON_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/SOAUtil.jar"]]')
-#AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "SERVERSTARTUP_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/log4j-1.2.17.jar"]]')
+saveAndSync(arrayNodes)
 
-#saveAndSync(arrayNodes)
+AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "COMMON_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/SOAUtil.jar"]]')
+AdminConfig.create('Library', AdminConfig.getid('/Cell:PCCell1/'), '[[nativePath ""] [name "SERVERSTARTUP_LIB"] [isolatedClassLoader true] [description ""] [classPath "/apps/SOA/JAR/log4j-1.2.17.jar;/apps/SOA/PROP"]]')
+
+saveAndSync(arrayNodes)
 
 # Get server id
 serv = AdminConfig.getid('/Server:SingleClusterMember1/')
@@ -64,11 +71,7 @@ classLoader1 = cleanClassLoaders.split(' ')[0]
 print classLoader1
 
 # Create shared library references
-print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_Content_Navigator_Shared_Library']])
 print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'COMMON_LIB']])
-print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_PerformanceDW_Shared_Library']])
-print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_Process_Server_Shared_Library']])
-print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'IBM_BPM_DocStoreAdmin_Shared_Library']])
 print AdminConfig.create('LibraryRef', classLoader1, [['libraryName', 'SERVERSTARTUP_LIB']])
 
 saveAndSync(arrayNodes)

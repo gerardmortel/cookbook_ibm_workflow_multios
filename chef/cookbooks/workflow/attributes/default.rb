@@ -42,6 +42,7 @@ default['ibm']['log_dir'] = '/var/log/ibm_cloud'
 
 # os admin user
 default['os_admin']['user'] = 'root'
+default['os_admin']['group'] = 'root'
 
 #default['workflow']['install_mode'] = 'group'
 default['workflow']['install_mode'] = 'nonAdmin'
@@ -175,3 +176,7 @@ default['workflow']['config']['ps_pc_alias_user'] = 'admin'
 default['workflow']['config']['ps_pc_alias_password'] = 'admin'
 default['workflow']['config']['metering']['apikey'] = 'Bpmr0cks'
 default['workflow']['config']['database_type'] = 'DB2'
+
+# Define EAR to install and configure
+default['workflow']['ear'] = '/home/cloud-user/NiceIntegration/NiceIntegrationMediationApp.ear'
+

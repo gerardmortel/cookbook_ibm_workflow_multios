@@ -116,10 +116,10 @@ when 'rhel'
   # This RHEL image has ulimit set in the .bash_profile so comment the last line out
   # Before: "ulimit -n 10000"
   # After: "#ulimit -n 10000"
-  template "/root/.bash_profile" do
-    source ".bash_profile.erb"
-    mode '0644'
-  end
+#  template "/root/.bash_profile" do
+#    source ".bash_profile.erb"
+#    mode '0644'
+#  end
 
   # #create OS users and groups
   # node['workflow']['os_users'].each_pair do |_k, u|
