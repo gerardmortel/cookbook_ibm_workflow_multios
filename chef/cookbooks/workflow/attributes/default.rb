@@ -31,7 +31,8 @@
 
 # workflow archive files(images) download location
 #default['ibm']['sw_repo'] = '/home/opc/software/baw'
-default['ibm']['sw_repo'] = 'file:////home/cloud-user'
+default['ibm']['sw_repo'] = 'file:///home/cloud-user'
+#default['ibm']['sw_repo'] = '/home/cloud-user'
 # workflow ifix files download location
 default['ibm']['ifix_repo'] = ''
 # workflow fixpack files download location

@@ -35,12 +35,34 @@ action :prepare do
     converge_by("prepare_install #{@new_resource}") do
       repo_paths = new_resource.sw_repo
       workflow_expand_area = new_resource.workflow_expand_area
-
+	  
       runas_user = define_user
       runas_group = define_group
-
       im_folder_permission = define_im_folder_permission
+	  
+	  # # Ensure workflow_expand_area directory exists
+	  # directory "#{workflow_expand_area}" do
+	    # recursive true
+	  	# owner runas_user
+	  	# group runas_group
+	  	# mode im_folder_permission
+	  	# action :create
+	  # end
 
+	  # # Ensure directory is traversable
+	  # execute "chown /home/#{runas_user}" do
+	  	# command "chown -R #{runas_user}:#{runas_group} /home/#{runas_user}"
+	  	# user "root"
+	  	# action :run
+	  # end
+	
+	  # # Extract source binaries
+	  # execute "Extract source binaries" do
+		# command "cd /home/#{runas_user} && for i in $(ls -1 *tar.gz); do tar -zxf $i -C #{workflow_expand_area} ; done"
+		# user runas_user
+		# action :run
+	  # end
+	  
       im_archive_names = node['workflow']['archive_names']
       im_archive_names.each_pair do |p, v|
         filename = v['filename']

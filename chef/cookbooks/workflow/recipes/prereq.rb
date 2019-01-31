@@ -138,12 +138,31 @@ when 'rhel'
       # manage_home true
     # end
   # end
+  
+	# # Ensure /home/cloud-user directory exists
+	# user = node['workflow']['runas_user']
+	# group = node['workflow']['runas_user']
+	# directory "/home/#{user}" do
+		# owner "#{user}"
+		# group "#{user}"
+		# mode '0755'
+		# action :create
+	# end
+	
+	# # Ensure directory is traversable
+	# execute "chown /home/#{user}" do
+		# command "chown -R #{user}:#{group} /home/#{user}"
+		# user "root"
+		# action :run
+	# end
 end
 
 # create directories ahead of time
 [node['ibm']['temp_dir'], node['ibm']['expand_area']].each do |dir|
     directory dir do
       recursive true
+      owner node['workflow']['os_users']['workflow']['name']
+      group node['workflow']['os_users']['workflow']['name']
       action :create
       mode '0755'
     end
