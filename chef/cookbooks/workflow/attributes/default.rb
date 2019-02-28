@@ -31,7 +31,7 @@
 
 # workflow archive files(images) download location
 #default['ibm']['sw_repo'] = '/home/opc/software/baw'
-default['ibm']['sw_repo'] = 'file:///home/cloud-user'
+default['ibm']['sw_repo'] = 'file:///root/'
 #default['ibm']['sw_repo'] = '/home/cloud-user'
 # workflow ifix files download location
 default['ibm']['ifix_repo'] = ''
@@ -60,8 +60,8 @@ default['workflow']['os_users'] = {
 
 default['workflow']['im_version'] = '189'
 
-# The release and fixpack level of Business Automation Workflow to be installed. Example formats are 18001.
-default['workflow']['version'] = '18001'
+# The release and fixpack level of Business Automation Workflow to be installed. Example formats are "18.0.0.1"
+default['workflow']['version'] = '18.0.0.1'
 
 default['workflow']['features'] = 'WorkflowEnterprise.Production' # 'WorkflowEnterprise.Production', 'WorkflowEnterprise.NonProduction',
 # 'EnterpriseServiceBus.Production', 'EnterpriseServiceBus.NonProduction', 'WorkflowExpress.Production' or 'WorkflowExpress.NonProduction'
