@@ -1,4 +1,3 @@
-# =================================================================
 # Copyright 2018 IBM Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,3 +45,10 @@ dirs.each_pair do |dir, size|
   end
 end
 =end
+
+# Wait for things to settle down in case there is an update going on
+Chef::Log.info("Wait in case update is occurring.")
+execute "Wait in case update is occurring." do
+  command "while ps aux | grep -i apt|grep -v grep; do sleep 15s; done"
+  action :run
+end
