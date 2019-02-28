@@ -17,29 +17,16 @@
 # ulimits for IBM Business Automation Workflow
 
 # - stack - maximum stack size (KB)
-<%= @OSUSER %> soft stack 32768
-<%= @OSUSER %> hard stack 32768
+* soft stack 32768
+* hard stack 32768
 # - nofile - maximum number of open files
-<%= @OSUSER %> soft nofile 65536
-<%= @OSUSER %> hard nofile 65536
+* soft nofile 65536
+* hard nofile 65536
 # TODO: no need to enable below settings, for that
 # default value is bigger than following settings on Ubuntu OS
 # - nproc - maximum number of processes
-<%= @OSUSER %> soft nproc 16384
-<%= @OSUSER %> hard nproc 16384
+* soft nproc 16384
+* hard nproc 16384
 # - fsize - maximum file size
-#<%= @OSUSER %> soft fsize 6291453
-#<%= @OSUSER %> hard fsize 6291453
-
-# - stack - maximum stack size (KB)
-<%= @OSADMINUSER %> soft stack 32768
-<%= @OSADMINUSER %> hard stack 32768
-# - nofile - maximum number of open files
-<%= @OSADMINUSER %> soft nofile 65536
-<%= @OSADMINUSER %> hard nofile 65536
-# - nproc - maximum number of processes
-<%= @OSADMINUSER %> soft nproc 16384
-<%= @OSADMINUSER %> hard nproc 16384
-# - fsize - maximum file size
-#<%= @OSADMINUSER %> soft fsize 6291453
-#<%= @OSADMINUSER %> hard fsize 6291453
+* soft fsize 6291453
+* hard fsize 6291453
