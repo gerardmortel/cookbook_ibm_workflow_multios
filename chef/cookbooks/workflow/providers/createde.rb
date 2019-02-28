@@ -619,7 +619,7 @@ action :restore_isc do
   return if ::File.exist?("#{new_resource.install_dir}/chef-state/restore_isc_done")
 
   # known ubuntu limitation
-  return unless (node['platform_family'] == "debian")
+  return unless (node['platform_family'] == "debian" || node['platform_family'] == "ubuntu") 
 
   # only need run one-time for multiple nodes environment on dmgr node
   return unless ::Dir.exist?("#{new_resource.install_dir}/profiles/DmgrProfile")
@@ -645,7 +645,7 @@ action :restore_isc do
     # TODO: the 'ulimit -n 65536' should take effect in prepare step.
     isc_restore_cmd = "ulimit -n 65536; ./iscdeploy.sh -restore"
     # Chef 12+ problem with OS detection. Replacing C.UTF-8 with en_US"
-    isc_restore_cmd = "export LANG=en_US; export LANGUAGE=en_US; export LC_ALL=en_US; ulimit -n 65536; ./iscdeploy.sh -restore" if (node['platform_family'] == "debian")
+    isc_restore_cmd = "export LANG=en_US; export LANGUAGE=en_US; export LC_ALL=en_US; ulimit -n 65536; ./iscdeploy.sh -restore" if (node['platform_family'] == "debian" || node['platform_family'] == "ubuntu")
     execute "isc_restore: restore isc for the issue - missing BPM content in admin console" do
       cwd "#{new_resource.install_dir}/profiles/DmgrProfile/bin"
       command isc_restore_cmd
