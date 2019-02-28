@@ -35,7 +35,7 @@
 Chef::Log.info("node['platform_family']: #{node['platform_family']}")
 
 case node['platform_family']
-when 'debian'
+when 'debian', 'ubuntu'
   # for db2
   execute 'enable_extra_repository' do
     command 'dpkg --add-architecture i386'
