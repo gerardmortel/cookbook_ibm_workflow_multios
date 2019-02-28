@@ -38,7 +38,7 @@ default['ibm']['sw_repo_password'] = ''
 # The prerequistes packages, which need be installed ahead of time
 force_default['workflow']['prereq_packages'] = []
 case node['platform_family']
-when 'debian'
+when 'debian', 'ubuntu'
   case node['kernel']['machine']
   when 'x86_64'
     # for db2, was and workflow
@@ -66,15 +66,18 @@ end
 # 1. BAW_18_0_0_1_Linux_x86_1_of_3.tar.gz
 # 2. BAW_18_0_0_1_Linux_x86_2_of_3.tar.gz
 # 3. BAW_18_0_0_1_Linux_x86_3_of_3.tar.gz
-#
-force_override['workflow']['version'] = node['workflow']['version'].gsub('.', '_')
+# Comment out next line because I do not want periods replaced with underscores
+#force_override['workflow']['version'] = node['workflow']['version'].gsub('.', '_')
 force_override['workflow']['archive_names'] = {
   'was' => {
-    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_1_of_3.tar.gz" },
+#    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_1_of_3.tar.gz" },
+    'filename' => "BAW_#{node['workflow']['version']}LINX86_64BIT_ML_13.tar.gz" },
   'workflow' => {
-    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_2_of_3.tar.gz" },
+#    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_2_of_3.tar.gz" },
+    'filename' => "BAW_#{node['workflow']['version']}LINX86_64BIT_ML_23.tar.gz" },
   'db2' => {
-    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_3_of_3.tar.gz" }
+#    'filename' => "BAW_#{node['workflow']['version']}_Linux_x86_3_of_3.tar.gz" }
+    'filename' => "BAW_#{node['workflow']['version']}LINX86_64BIT_ML_33.tar.gz" },
 }
 
 # The runas user/group while doing 'execute'
